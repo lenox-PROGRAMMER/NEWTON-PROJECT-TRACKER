@@ -24,18 +24,18 @@ export default function AdminDashboard() {
       setProjects(res.data);
     } catch (err) {
       console.error('Error fetching projects:', err);
-      toast.error('❌ Failed to load projects.');
+      toast.error(' Failed to load projects.');
     }
   };
 
   const handleModerate = async (projectId, newStatus) => {
     try {
       await api.patch(`/projects/${projectId}`, { status: newStatus });
-      toast.success(`✅ Project marked as ${newStatus.toUpperCase()}`);
+      toast.success(`Project marked as ${newStatus.toUpperCase()}`);
       fetchAllProjects();
     } catch (err) {
       console.error('Moderation error:', err);
-      toast.error('❌ Could not update project status.');
+      toast.error(' Could not update project status.');
     }
   };
 
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
       fetchAllProjects();
     } catch (err) {
       console.error('Delete error:', err);
-      toast.error('❌ Failed to delete project.');
+      toast.error(' Failed to delete project.');
     }
   };
 
@@ -66,16 +66,16 @@ export default function AdminDashboard() {
 
     try {
       await api.post('/feedback', { projectId, text, rating });
-      toast.success('💬 Feedback submitted!');
+      toast.success(' Feedback submitted!');
       setFeedbackData(prev => ({
         ...prev,
         [projectId]: { ...prev[projectId], sent: true }
       }));
     } catch (err) {
       if (err?.response?.status === 409) {
-        toast.warning('⚠️ Feedback already exists for this project.');
+        toast.warning(' Feedback already exists for this project.');
       } else {
-        toast.error('❌ Failed to submit feedback.');
+        toast.error(' Failed to submit feedback.');
       }
       console.error('Feedback error:', err);
     }
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
   return (
     <div className="dashboard-container">
       <ToastContainer />
-      <h2>🧑‍💼 Admin Dashboard</h2>
+      <h2>Admin Dashboard</h2>
 
       <div style={{ marginBottom: '1rem' }}>
         <input
@@ -123,7 +123,7 @@ export default function AdminDashboard() {
       </div>
 
       <section className="project-list">
-        <h3>📦 Projects</h3>
+        <h3>Projects</h3>
 
         {filtered.length === 0 ? (
           <p>No matching projects.</p>
@@ -149,7 +149,7 @@ export default function AdminDashboard() {
                   <br />
                   <p>{project.description}</p>
                   <p>
-                    👤 <strong>{project.student?.name || 'Unknown'} ({project.student?.email})</strong>
+                     <strong>{project.student?.name || 'Unknown'} ({project.student?.email})</strong>
                   </p>
                   <a
                     href={project.githubLink}
